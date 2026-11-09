@@ -107,11 +107,11 @@ def test_reprocess_changed_month(spark, lake_env):
     """A re-downloaded month replaces only its own partition."""
     import os
     import time
-    from fixtures import _taxi_month
+    from fixtures import _taxi_month, write_parquet
     root, cfg = lake_env
     p = f"{root}/bronze/Files/raw/nyc_taxi/yellow/year=2025/month=01/yellow_tripdata_2025-01.parquet"
     time.sleep(1.1)
-    _taxi_month(2025, 1, False, True).head(10).to_parquet(p, index=False)   # smaller corrected file
+    write_parquet(_taxi_month(2025, 1, False, True).head(10), p)          # smaller corrected file
     os.utime(p, None)
     ns = run_silver(spark, cfg, sources="nyc_taxi_yellow")
     by_month = {r.year_month: r["count"] for r in table(spark, ns, "taxi_trips").groupBy("year_month").count().collect()}

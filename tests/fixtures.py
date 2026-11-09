@@ -34,13 +34,18 @@ def _taxi_month(year, month, upper_airport_fee, with_cbd):
     return df
 
 
+def write_parquet(df, path):
+    # microseconds like the real TLC files; Spark 3.5 cannot read nanosecond timestamps
+    df.to_parquet(path, index=False, coerce_timestamps="us", allow_truncated_timestamps=True)
+
+
 def build_bronze(root, spark):
     files = f"{root}/bronze/Files"
     # taxi: 2024-12 (old schema: Airport_fee) and 2025-01 (new: airport_fee + cbd_congestion_fee)
     for (y, m, upper, cbd) in [(2024, 12, True, False), (2025, 1, False, True)]:
         d = f"{files}/raw/nyc_taxi/yellow/year={y}/month={m:02d}"
         os.makedirs(d, exist_ok=True)
-        _taxi_month(y, m, upper, cbd).to_parquet(f"{d}/yellow_tripdata_{y}-{m:02d}.parquet", index=False)
+        write_parquet(_taxi_month(y, m, upper, cbd), f"{d}/yellow_tripdata_{y}-{m:02d}.parquet")
     z = f"{files}/raw/nyc_taxi/zones"
     os.makedirs(z, exist_ok=True)
     with open(f"{z}/taxi_zone_lookup.csv", "w") as f:
