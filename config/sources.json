@@ -1,0 +1,196 @@
+{
+  "project": "nyc-urban-analytics",
+  "version": 1,
+  "defaults": {
+    "start_date": "2025-01-01",
+    "calendar_start": "2000-01-01",
+    "timezone": "America/New_York"
+  },
+  "sources": [
+    {
+      "name": "nyc_taxi_yellow",
+      "enabled": true,
+      "domain": "mobility",
+      "description": "NYC TLC yellow taxi trip records, one Parquet file per month",
+      "bronze": {
+        "method": "pipeline_copy",
+        "frequency": "monthly",
+        "start_date": "2025-01-01",
+        "base_url": "https://d37ci6vzurychx.cloudfront.net",
+        "relative_url": "trip-data/yellow_tripdata_{yyyy}-{mm}.parquet",
+        "landing_folder": "raw/nyc_taxi/yellow/year={yyyy}/month={mm}",
+        "file_name": "yellow_tripdata_{yyyy}-{mm}.parquet"
+      },
+      "silver": {
+        "transform": "taxi_trips",
+        "table": "taxi_trips",
+        "write_mode": "replace_partition",
+        "partition_by": [
+          "year_month"
+        ],
+        "options": {
+          "service": "yellow",
+          "pickup_col": "tpep_pickup_datetime",
+          "dropoff_col": "tpep_dropoff_datetime"
+        }
+      }
+    },
+    {
+      "name": "nyc_taxi_green",
+      "enabled": false,
+      "domain": "mobility",
+      "description": "Green taxi: same transform, different column prefix. Enable to add a dataset without code changes.",
+      "bronze": {
+        "method": "pipeline_copy",
+        "frequency": "monthly",
+        "start_date": "2025-01-01",
+        "base_url": "https://d37ci6vzurychx.cloudfront.net",
+        "relative_url": "trip-data/green_tripdata_{yyyy}-{mm}.parquet",
+        "landing_folder": "raw/nyc_taxi/green/year={yyyy}/month={mm}",
+        "file_name": "green_tripdata_{yyyy}-{mm}.parquet"
+      },
+      "silver": {
+        "transform": "taxi_trips",
+        "table": "taxi_trips",
+        "write_mode": "replace_partition",
+        "partition_by": [
+          "year_month"
+        ],
+        "options": {
+          "service": "green",
+          "pickup_col": "lpep_pickup_datetime",
+          "dropoff_col": "lpep_dropoff_datetime"
+        }
+      }
+    },
+    {
+      "name": "nyc_taxi_zones",
+      "enabled": true,
+      "domain": "mobility",
+      "description": "Taxi zone lookup (LocationID -> Borough, Zone)",
+      "bronze": {
+        "method": "pipeline_copy",
+        "frequency": "once",
+        "base_url": "https://d37ci6vzurychx.cloudfront.net",
+        "relative_url": "misc/taxi_zone_lookup.csv",
+        "landing_folder": "raw/nyc_taxi/zones",
+        "file_name": "taxi_zone_lookup.csv"
+      },
+      "silver": {
+        "transform": "taxi_zones",
+        "table": "taxi_zones",
+        "write_mode": "overwrite"
+      }
+    },
+    {
+      "name": "openaq_air_quality",
+      "enabled": true,
+      "domain": "environment",
+      "description": "OpenAQ v3 daily sensor averages for NYC (PM2.5, NO2)",
+      "bronze": {
+        "method": "dataflow",
+        "dataflow": "df_openaq",
+        "bronze_table": "openaq_sensor_days",
+        "params": {
+          "base_url": "https://api.openaq.org",
+          "bbox": "-74.26,40.49,-73.70,40.92",
+          "parameters": [
+            "pm25",
+            "no2"
+          ],
+          "start_date": "2025-01-01",
+          "page_limit": 1000
+        }
+      },
+      "silver": {
+        "transform": "air_quality_daily",
+        "table": "air_quality_daily",
+        "write_mode": "merge",
+        "keys": [
+          "sensor_id",
+          "date"
+        ]
+      }
+    },
+    {
+      "name": "worldbank_gdp",
+      "enabled": true,
+      "domain": "economy",
+      "description": "World Bank GDP (current USD), yearly, several countries",
+      "bronze": {
+        "method": "dataflow",
+        "dataflow": "df_worldbank_gdp",
+        "bronze_table": "worldbank_gdp",
+        "params": {
+          "base_url": "https://api.worldbank.org",
+          "indicator": "NY.GDP.MKTP.CD",
+          "countries": [
+            "USA",
+            "DEU",
+            "FRA",
+            "GBR",
+            "JPN",
+            "CHN"
+          ],
+          "from_year": 2000
+        }
+      },
+      "silver": {
+        "transform": "gdp_yearly",
+        "table": "gdp_yearly",
+        "write_mode": "overwrite"
+      }
+    },
+    {
+      "name": "ecb_fx_usd_eur",
+      "enabled": true,
+      "domain": "economy",
+      "description": "ECB reference rate: US dollars per 1 euro, working days",
+      "bronze": {
+        "method": "dataflow",
+        "dataflow": "df_ecb_fx",
+        "bronze_table": "ecb_fx",
+        "params": {
+          "base_url": "https://data-api.ecb.europa.eu",
+          "series_key": "D.USD.EUR.SP00.A",
+          "start_date": "2020-01-01"
+        }
+      },
+      "silver": {
+        "transform": "fx_daily",
+        "table": "fx_daily",
+        "write_mode": "overwrite"
+      }
+    },
+    {
+      "name": "weather_nyc_daily",
+      "enabled": false,
+      "domain": "environment",
+      "description": "Open-Meteo historical daily weather for NYC. Added only through configuration + one transform function (see docs/05_adding_a_source.md).",
+      "bronze": {
+        "method": "notebook_http",
+        "frequency": "monthly",
+        "start_date": "2025-01-01",
+        "url": "https://archive-api.open-meteo.com/v1/archive",
+        "query": {
+          "latitude": "40.7128",
+          "longitude": "-74.0060",
+          "start_date": "{month_start}",
+          "end_date": "{month_end}",
+          "daily": "temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,wind_speed_10m_max",
+          "timezone": "America/New_York"
+        },
+        "landing_folder": "raw/weather/open_meteo/year={yyyy}/month={mm}",
+        "file_name": "weather_{yyyy}-{mm}.json"
+      },
+      "silver": {
+        "transform": "weather_daily",
+        "table": "weather_daily",
+        "write_mode": "merge",
+        "keys": [
+          "date"
+        ]
+      }
+    }
+  ]
+}
