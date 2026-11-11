@@ -20,11 +20,25 @@
 
 # PARAMETERS CELL ********************
 
-openaq_api_key = ""        # paste the key, run, then clear this value again
+openaq_api_key = ""     
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
 
 # CELL ********************
 
 %run nb_common
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
 
 # CELL ********************
 
@@ -33,6 +47,13 @@ cfg = load_config(lake.files())
 print("config:", [s["name"] + (" (enabled)" if s.get("enabled", True) else " (disabled)") for s in cfg["sources"]])
 for folder in ["raw", "config"]:
     notebookutils.fs.mkdirs(lake.files(folder))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
 
 # CELL ********************
 
@@ -43,3 +64,10 @@ if openaq_api_key.strip():
     print("cfg_secrets written - now clear the parameter value")
 else:
     print("no key given - cfg_secrets unchanged")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
