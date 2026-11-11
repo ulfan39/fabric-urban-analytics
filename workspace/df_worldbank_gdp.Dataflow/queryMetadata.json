@@ -1,0 +1,39 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "df_worldbank_gdp",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "worldbank_gdp": {
+      "queryId": "5eee5ec6-b7e9-405c-bd81-31b08a8aa838",
+      "queryName": "worldbank_gdp",
+      "loadEnabled": false
+    },
+    "worldbank_gdp_DataDestination": {
+      "queryId": "651b9af0-dd02-47f9-bf0e-a083f5c987ed",
+      "queryName": "worldbank_gdp_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "https://raw.githubusercontent.com/ulfan39/fabric-urban-analytics/main/config/sources.json",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"100511ae-9e88-4d52-a06d-e060baf157da\"}"
+    },
+    {
+      "path": "https://api.worldbank.org/",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"0b94dd09-7f5a-4189-9cc6-e9d0235f2e3e\"}"
+    },
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"34c89561-a3d2-443b-9914-92e85bbc2124\"}"
+    }
+  ]
+}
