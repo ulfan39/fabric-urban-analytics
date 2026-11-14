@@ -20,13 +20,34 @@
 sources = "all"            # comma separated source names or "all"
 run_id = ""                # pipeline run id (passed by the pipeline), for the load log
 
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
 # CELL ********************
 
 %run nb_common
 
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
 # CELL ********************
 
 %run nb_transforms
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
 
 # CELL ********************
 
@@ -89,6 +110,13 @@ for src in cfg["sources"]:
     if entries:
         log_load(spark, lake, entries)
 
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
 # CELL ********************
 
 # calendar = source of DimDate, from defaults.calendar_start to the end of next year
@@ -97,8 +125,22 @@ end = f"{dt.date.today().year + 1}-12-31"
 write_table(spark, lake, build_calendar(spark, start, end), lake.silver_table("calendar"), {"write_mode": "overwrite"})
 print(f"calendar {start} .. {end}")
 
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
 # CELL ********************
 
 if failures:
     raise RuntimeError(f"silver load failed for: {', '.join(failures)} (see _load_log)")
 print("silver load finished")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
