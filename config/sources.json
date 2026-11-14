@@ -15,7 +15,7 @@
       "bronze": {
         "method": "pipeline_copy",
         "frequency": "monthly",
-        "start_date": "2025-01-01",
+        "start_date": "2026-06-01",
         "base_url": "https://d37ci6vzurychx.cloudfront.net",
         "relative_url": "trip-data/yellow_tripdata_{yyyy}-{mm}.parquet",
         "landing_folder": "raw/nyc_taxi/yellow/year={yyyy}/month={mm}",
