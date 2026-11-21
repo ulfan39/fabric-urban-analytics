@@ -1,0 +1,74 @@
+table DimGDP
+	lineageTag: 2a8e9906-5254-44a6-835c-b448012e4125
+	sourceLineageTag: [gold].[DimGDP]
+
+	measure 'US GDP USD' = CALCULATE ( SUM ( DimGDP[GdpUsd] ), DimGDP[CountryCode] = "USA", TREATAS ( VALUES ( DimDate[Year] ), DimGDP[Year] ) )
+		lineageTag: 55efc2c3-9d10-4ea7-8a76-3fb3bd1a8d11
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryCode
+		dataType: string
+		sourceProviderType: varchar(3)
+		lineageTag: 27c6e00e-98bd-4375-a354-069ce895a1d3
+		sourceLineageTag: CountryCode
+		summarizeBy: none
+		sourceColumn: CountryCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryName
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: a7e9f69c-5a4a-493b-b2d8-b606159c2013
+		sourceLineageTag: CountryName
+		summarizeBy: none
+		sourceColumn: CountryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: 9327dc75-6a56-4dd3-86dc-72e0cde9e929
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column GdpUsd
+		dataType: double
+		sourceProviderType: decimal(20, 2)
+		lineageTag: 6c1f0989-29ee-4f83-9c60-1af6727150ae
+		sourceLineageTag: GdpUsd
+		summarizeBy: sum
+		sourceColumn: GdpUsd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GdpGrowthPct
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(9, 4)
+		lineageTag: 53c36a59-8a2e-4a3f-9b39-54430d3a243a
+		sourceLineageTag: GdpGrowthPct
+		summarizeBy: sum
+		sourceColumn: GdpGrowthPct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition DimGDP = entity
+		mode: directLake
+		source
+			entityName: DimGDP
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

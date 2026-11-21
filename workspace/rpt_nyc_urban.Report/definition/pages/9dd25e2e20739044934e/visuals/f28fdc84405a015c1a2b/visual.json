@@ -1,0 +1,207 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "f28fdc84405a015c1a2b",
+  "position": {
+    "x": 0,
+    "y": 4.0359981606779218,
+    "z": 4,
+    "height": 425.79780595152073,
+    "width": 789.03764041253362,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimAQLocation"
+                    }
+                  },
+                  "Property": "LocationName"
+                }
+              },
+              "queryRef": "DimAQLocation.LocationName",
+              "nativeQueryRef": "LocationName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimAQLocation"
+                    }
+                  },
+                  "Property": "Borough"
+                }
+              },
+              "queryRef": "DimAQLocation.Borough",
+              "nativeQueryRef": "Borough"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAirQualityDaily"
+                    }
+                  },
+                  "Property": "NO2"
+                }
+              },
+              "queryRef": "FactAirQualityDaily.NO2",
+              "nativeQueryRef": "NO2"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAirQualityDaily"
+                    }
+                  },
+                  "Property": "PM2.5"
+                }
+              },
+              "queryRef": "FactAirQualityDaily.PM2.5",
+              "nativeQueryRef": "PM2.5"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "FactAirQualityDaily"
+                  }
+                },
+                "Property": "PM2.5"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Stations ranked by PM2.5'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c427cfc38b09a6327961",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimAQLocation"
+              }
+            },
+            "Property": "LocationName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7ee014680b462deecb50",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimAQLocation"
+              }
+            },
+            "Property": "Borough"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "77594904094005ce05be",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactAirQualityDaily"
+              }
+            },
+            "Property": "NO2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "19c3f60430d83620c9b3",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactAirQualityDaily"
+              }
+            },
+            "Property": "PM2.5"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

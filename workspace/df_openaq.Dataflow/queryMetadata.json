@@ -1,0 +1,44 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "df_openaq",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "Secrets": {
+      "queryId": "316e9158-8f00-4cc2-9db4-1c8d6f8c26d2",
+      "queryName": "Secrets",
+      "loadEnabled": false
+    },
+    "openaq_sensor_days": {
+      "queryId": "c81eecd0-ae32-4fa3-89ea-ddd58c75357a",
+      "queryName": "openaq_sensor_days",
+      "loadEnabled": false
+    },
+    "openaq_sensor_days_DataDestination": {
+      "queryId": "05b9501c-678c-4e5c-823a-552ba0b37675",
+      "queryName": "openaq_sensor_days_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"34c89561-a3d2-443b-9914-92e85bbc2124\"}"
+    },
+    {
+      "path": "https://raw.githubusercontent.com/ulfan39/fabric-urban-analytics/main/config/sources.json",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"100511ae-9e88-4d52-a06d-e060baf157da\"}"
+    },
+    {
+      "path": "https://api.openaq.org/",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"252b81b4-37cc-4c3c-8ca5-1ac38a8914d2\"}"
+    }
+  ]
+}

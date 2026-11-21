@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "cecc22eebce829d6d98d",
+  "position": {
+    "x": 0,
+    "y": 117.04394665965972,
+    "z": 3,
+    "height": 290.59186756881036,
+    "width": 296.64586480982723,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTaxiDaily"
+                    }
+                  },
+                  "Property": "Revenue per Trip USD"
+                }
+              },
+              "queryRef": "FactTaxiDaily.Revenue per Trip USD",
+              "nativeQueryRef": "Revenue per Trip USD"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c22d2d06d75caccad2cc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactTaxiDaily"
+              }
+            },
+            "Property": "Revenue per Trip USD"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "df_ecb_fx",
+  "queryGroups": [],
+  "documentLocale": "en-GB",
+  "queriesMetadata": {
+    "ecb_fx": {
+      "queryId": "6a69bb66-d568-42e5-8790-8bf4d2077223",
+      "queryName": "ecb_fx",
+      "loadEnabled": false
+    },
+    "ecb_fx_DataDestination": {
+      "queryId": "88933da8-1947-41db-a796-14d6c8d85587",
+      "queryName": "ecb_fx_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "https://raw.githubusercontent.com/ulfan39/fabric-urban-analytics/main/config/sources.json",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"100511ae-9e88-4d52-a06d-e060baf157da\"}"
+    },
+    {
+      "path": "https://data-api.ecb.europa.eu/",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"73bf173a-6277-480a-a6df-8a44eee8c9a1\"}"
+    },
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"7eb85e36-fabd-4324-af8f-a416be58d1d0\",\"DatasourceId\":\"34c89561-a3d2-443b-9914-92e85bbc2124\"}"
+    }
+  ]
+}

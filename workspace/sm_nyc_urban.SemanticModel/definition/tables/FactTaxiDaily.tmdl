@@ -1,0 +1,230 @@
+table FactTaxiDaily
+	lineageTag: fa2ce029-ec22-4938-919a-d443dff55449
+	sourceLineageTag: [gold].[FactTaxiDaily]
+
+	measure 'Total Trips' = SUM ( FactTaxiDaily[Trips] )
+		formatString: 0
+		lineageTag: a4917e17-e206-427d-b521-7495434d66a4
+
+		changedProperty = Name
+
+	measure 'Revenue USD' = SUM ( FactTaxiDaily[TotalUsd] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: a18d8dcd-adef-458f-9b2d-fc03a2f6ff2a
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue EUR' = SUM ( FactTaxiDaily[TotalEur] )
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		lineageTag: 7ea75599-38d5-4a08-88f2-91859a121144
+
+		changedProperty = FormatString
+
+	measure 'Revenue per Trip USD' = DIVIDE ( [Revenue USD], [Total Trips] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: ca0e14de-c86a-431e-9b5d-52bdbbd6f7b7
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue per Trip EUR' = DIVIDE ( [Revenue EUR], [Total Trips] )
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		lineageTag: 92652690-49fa-45a2-a210-4892729504b6
+
+		changedProperty = FormatString
+
+	measure 'Avg Fare USD' = DIVIDE ( SUM ( FactTaxiDaily[FareUsd] ), [Total Trips] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: ef7d5d3a-66b9-4610-ae08-20feb9fd983b
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Avg Duration min' = DIVIDE ( SUM ( FactTaxiDaily[DurationMin] ), [Total Trips] )
+		lineageTag: 457c318c-1b59-47fc-bdfc-912ce40cf63a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Trips per Day' = DIVIDE ( [Total Trips], DISTINCTCOUNT ( FactTaxiDaily[DateKey] ) )
+		lineageTag: 4ce992e8-23a9-4213-aaf9-177e6f2d69eb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Corr Trips PM2.5' = ```
+			
+			        VAR T = FILTER ( ADDCOLUMNS ( VALUES ( DimDate[Date] ), "x", [Total Trips], "y", [PM2.5] ),
+			                         NOT ISBLANK ( [x] ) && NOT ISBLANK ( [y] ) )
+			        VAR mx = AVERAGEX ( T, [x] )
+			        VAR my = AVERAGEX ( T, [y] )
+			        RETURN DIVIDE ( SUMX ( T, ( [x] - mx ) * ( [y] - my ) ),
+			                        SQRT ( SUMX ( T, ( [x] - mx ) ^ 2 ) * SUMX ( T, ( [y] - my ) ^ 2 ) ) )
+			```
+		formatString: #,0.00
+		lineageTag: 3a8eac17-3dd7-4a49-a267-5080ba31af41
+
+		changedProperty = FormatString
+
+	measure 'Corr Trips NO2' = ```
+			
+			        VAR T = FILTER ( ADDCOLUMNS ( VALUES ( DimDate[Date] ), "x", [Total Trips], "y", [NO2] ),
+			                         NOT ISBLANK ( [x] ) && NOT ISBLANK ( [y] ) )
+			        VAR mx = AVERAGEX ( T, [x] )
+			        VAR my = AVERAGEX ( T, [y] )
+			        RETURN DIVIDE ( SUMX ( T, ( [x] - mx ) * ( [y] - my ) ),
+			                        SQRT ( SUMX ( T, ( [x] - mx ) ^ 2 ) * SUMX ( T, ( [y] - my ) ^ 2 ) ) )
+			```
+		formatString: #,0.00
+		lineageTag: e649fb32-ad30-48c4-afb8-0dc0db458c37
+
+		changedProperty = FormatString
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c523a259-3554-443a-b3df-421b4a5ac616
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PickupZoneKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b661cb7a-0d0d-4530-bf09-28ff4378f088
+		sourceLineageTag: PickupZoneKey
+		summarizeBy: none
+		sourceColumn: PickupZoneKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: c9ec3ac3-2d5b-44c0-935d-8b5b3fc144eb
+		sourceLineageTag: Service
+		summarizeBy: none
+		sourceColumn: Service
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cda548ef-3037-47e5-b463-087ec46be45d
+		sourceLineageTag: Trips
+		summarizeBy: sum
+		sourceColumn: Trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column Passengers
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b331de36-c607-4960-a686-32efc8b55f27
+		sourceLineageTag: Passengers
+		summarizeBy: sum
+		sourceColumn: Passengers
+
+		annotation SummarizationSetBy = Automatic
+
+	column DistanceMiles
+		dataType: double
+		sourceProviderType: decimal(18, 2)
+		lineageTag: 14d23a88-1103-498f-a2a5-54cb436f36c2
+		sourceLineageTag: DistanceMiles
+		summarizeBy: sum
+		sourceColumn: DistanceMiles
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FareUsd
+		dataType: double
+		sourceProviderType: decimal(18, 2)
+		lineageTag: bd6590df-f118-4e23-ae2c-d65aad4405d3
+		sourceLineageTag: FareUsd
+		summarizeBy: sum
+		sourceColumn: FareUsd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TipUsd
+		dataType: double
+		sourceProviderType: decimal(18, 2)
+		lineageTag: b232b1cc-f966-4576-b6cd-a3609cf9f45b
+		sourceLineageTag: TipUsd
+		summarizeBy: sum
+		sourceColumn: TipUsd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalUsd
+		dataType: double
+		sourceProviderType: decimal(18, 2)
+		lineageTag: d3d4390d-0174-4820-997c-f5b058ab81a9
+		sourceLineageTag: TotalUsd
+		summarizeBy: sum
+		sourceColumn: TotalUsd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalEur
+		dataType: double
+		sourceProviderType: decimal(18, 2)
+		lineageTag: 84af0c18-b22e-4f81-a5b4-05b3569ab932
+		sourceLineageTag: TotalEur
+		summarizeBy: sum
+		sourceColumn: TotalEur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DurationMin
+		dataType: double
+		sourceProviderType: decimal(18, 2)
+		lineageTag: 033dda7a-8df8-4a0c-b7ba-1c25a40f3e56
+		sourceLineageTag: DurationMin
+		summarizeBy: sum
+		sourceColumn: DurationMin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AirportTrips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ebb83dc8-aef8-46a2-8d20-acc3cc040d5a
+		sourceLineageTag: AirportTrips
+		summarizeBy: sum
+		sourceColumn: AirportTrips
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactTaxiDaily = entity
+		mode: directLake
+		source
+			entityName: FactTaxiDaily
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

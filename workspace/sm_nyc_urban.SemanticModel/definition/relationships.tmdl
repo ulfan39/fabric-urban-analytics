@@ -1,0 +1,26 @@
+relationship 17f064f1-4de8-3ed8-4a34-51c82d14c284
+	fromColumn: FactTaxiDaily.DateKey
+	toColumn: DimDate.DateKey
+
+relationship 663364e5-22e2-a04c-4fb9-e5d755fbf7e4
+	fromColumn: FactTaxiHourly.DateKey
+	toColumn: DimDate.DateKey
+
+relationship de8a7821-04a6-1e49-0dc4-e6cd88082104
+	fromColumn: FactAirQualityDaily.DateKey
+	toColumn: DimDate.DateKey
+
+relationship 12d59316-dc87-9f7a-bb89-06ae4c643443
+	fromColumn: FactTaxiDaily.PickupZoneKey
+	toColumn: DimZone.ZoneKey
+
+relationship 6f484d4c-0b1c-3681-c292-ae6bb6478f8d
+	fromColumn: FactAirQualityDaily.LocationKey
+	toColumn: DimAQLocation.LocationKey
+
+relationship 65b32aff-da50-cbf6-e2de-0640f84ac3bf
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimFX.DateKey
+	toColumn: DimDate.DateKey
+
