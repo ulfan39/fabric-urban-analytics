@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "27b67457903a863d2369",
+  "position": {
+    "x": 905.56602233926731,
+    "y": 258.07746521556328,
+    "z": 2000,
+    "height": 118.83166693984592,
+    "width": 378.65005736764465,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTaxiDaily"
+                    }
+                  },
+                  "Property": "Avg Fare USD"
+                }
+              },
+              "queryRef": "FactTaxiDaily.Avg Fare USD",
+              "nativeQueryRef": "Avg Fare USD"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e3aea078321780ac7226",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactTaxiDaily"
+              }
+            },
+            "Property": "Avg Fare USD"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

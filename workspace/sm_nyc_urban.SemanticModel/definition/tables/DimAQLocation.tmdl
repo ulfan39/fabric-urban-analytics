@@ -1,0 +1,68 @@
+table DimAQLocation
+	lineageTag: baf4acdf-2919-4842-ac9f-62454a4bef76
+	sourceLineageTag: [gold].[DimAQLocation]
+
+	column LocationKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 10c36062-2722-43f4-9dda-9530493b389f
+		sourceLineageTag: LocationKey
+		summarizeBy: none
+		sourceColumn: LocationKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocationName
+		dataType: string
+		sourceProviderType: varchar(200)
+		lineageTag: 69013252-7bef-400d-bd4b-6b2fadb1c5c8
+		sourceLineageTag: LocationName
+		summarizeBy: none
+		sourceColumn: LocationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		sourceProviderType: float
+		lineageTag: bbde256c-3b05-46fd-91b8-8a35ee0324f0
+		sourceLineageTag: Latitude
+		summarizeBy: none
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 19beec8f-1b12-4765-b898-70cdfd1f4bfc
+		sourceLineageTag: Longitude
+		summarizeBy: none
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Borough
+		dataType: string
+		sourceProviderType: varchar(30)
+		lineageTag: 327ef50a-b73d-485b-ba97-deb5c3283245
+		sourceLineageTag: Borough
+		summarizeBy: none
+		sourceColumn: Borough
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimAQLocation = entity
+		mode: directLake
+		source
+			entityName: DimAQLocation
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

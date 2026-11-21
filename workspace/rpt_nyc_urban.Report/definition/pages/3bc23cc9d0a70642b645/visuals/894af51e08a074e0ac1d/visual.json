@@ -1,0 +1,305 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "894af51e08a074e0ac1d",
+  "position": {
+    "x": 898.00959075083756,
+    "y": 121.07994482033764,
+    "z": 6,
+    "height": 276.46587400643762,
+    "width": 447.99579583524928,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "DimDate.Year",
+              "nativeQueryRef": "Sum of Year",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTaxiDaily"
+                    }
+                  },
+                  "Property": "Total Trips"
+                }
+              },
+              "queryRef": "FactTaxiDaily.Total Trips",
+              "nativeQueryRef": "Total Trips"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTaxiDaily"
+                    }
+                  },
+                  "Property": "Revenue USD"
+                }
+              },
+              "queryRef": "FactTaxiDaily.Revenue USD",
+              "nativeQueryRef": "Revenue USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAirQualityDaily"
+                    }
+                  },
+                  "Property": "NO2"
+                }
+              },
+              "queryRef": "FactAirQualityDaily.NO2",
+              "nativeQueryRef": "NO2"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAirQualityDaily"
+                    }
+                  },
+                  "Property": "PM2.5"
+                }
+              },
+              "queryRef": "FactAirQualityDaily.PM2.5",
+              "nativeQueryRef": "PM2.5"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGDP"
+                    }
+                  },
+                  "Property": "US GDP USD"
+                }
+              },
+              "queryRef": "DimGDP.US GDP USD",
+              "nativeQueryRef": "US GDP USD"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DimDate"
+                  }
+                },
+                "Property": "Year"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "subTotals": [
+        {
+          "properties": {
+            "columnSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "rowSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000000000000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DimGDP.US GDP USD"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactTaxiDaily.Revenue USD"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactTaxiDaily.Total Trips"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "feafa3535ba59386e200",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimDate"
+              }
+            },
+            "Property": "Year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9d154800e386b5d9071b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactTaxiDaily"
+              }
+            },
+            "Property": "Total Trips"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8a51d057079e0bcea265",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactTaxiDaily"
+              }
+            },
+            "Property": "Revenue USD"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6949cc51208c50ebbde1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactAirQualityDaily"
+              }
+            },
+            "Property": "NO2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d6d13f7840300c5c8724",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactAirQualityDaily"
+              }
+            },
+            "Property": "PM2.5"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "98f5521638c005004dc4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimGDP"
+              }
+            },
+            "Property": "US GDP USD"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

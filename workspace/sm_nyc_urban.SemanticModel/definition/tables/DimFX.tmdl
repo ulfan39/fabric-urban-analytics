@@ -1,0 +1,75 @@
+table DimFX
+	lineageTag: 7d5f4877-8d35-4d5c-829c-542fcec9659e
+	sourceLineageTag: [gold].[DimFX]
+
+	measure 'USD per EUR' = AVERAGE ( DimFX[UsdPerEur] )
+		lineageTag: e232c084-db81-4baf-ab83-c006521bc7c6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cdd816b7-88d2-4bea-afa3-8d96ea3ca09d
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: e0570962-d91d-4a56-be40-e122accffa3a
+		sourceLineageTag: Date
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column UsdPerEur
+		dataType: double
+		sourceProviderType: decimal(12, 6)
+		lineageTag: a436ce98-21f8-4009-a60e-3eb0af1adbb0
+		sourceLineageTag: UsdPerEur
+		summarizeBy: sum
+		sourceColumn: UsdPerEur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EurPerUsd
+		dataType: double
+		sourceProviderType: decimal(12, 6)
+		lineageTag: 8d21b002-3a22-41ef-904c-f77032de6689
+		sourceLineageTag: EurPerUsd
+		summarizeBy: sum
+		sourceColumn: EurPerUsd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IsPublished
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 898b0bf8-4bbd-46b6-8e28-0012c093888e
+		sourceLineageTag: IsPublished
+		summarizeBy: none
+		sourceColumn: IsPublished
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimFX = entity
+		mode: directLake
+		source
+			entityName: DimFX
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

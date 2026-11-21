@@ -1,0 +1,130 @@
+table FactAirQualityDaily
+	lineageTag: 89924a7c-98b6-43f8-b7c3-98a2f99c0d17
+	sourceLineageTag: [gold].[FactAirQualityDaily]
+
+	measure 'PM2.5' = CALCULATE ( AVERAGE ( FactAirQualityDaily[AvgValue] ), FactAirQualityDaily[Parameter] = "pm25" )
+		formatString: #,0.0
+		lineageTag: dd2b0cee-409b-4992-868d-4470bf2a76be
+
+		changedProperty = FormatString
+
+	measure NO2 = CALCULATE ( AVERAGE ( FactAirQualityDaily[AvgValue] ), FactAirQualityDaily[Parameter] = "no2" )
+		formatString: #,0.0
+		lineageTag: 7ebb4007-cb5c-4267-9f64-5aefa2b03326
+
+		changedProperty = FormatString
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9c63550b-9f93-4adf-a08e-60ae70d0451a
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocationKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 15d52aff-6977-4c9a-b987-c23cf058fa1f
+		sourceLineageTag: LocationKey
+		summarizeBy: none
+		sourceColumn: LocationKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SensorId
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 43794dd3-2341-4e00-ba20-5ede83d83044
+		sourceLineageTag: SensorId
+		summarizeBy: count
+		sourceColumn: SensorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Parameter
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 3c8fa188-3fe3-48e3-8944-c7af471e7392
+		sourceLineageTag: Parameter
+		summarizeBy: none
+		sourceColumn: Parameter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 7f63aa88-706c-444c-a5f4-dd74d71f6549
+		sourceLineageTag: Units
+		summarizeBy: none
+		sourceColumn: Units
+
+		annotation SummarizationSetBy = Automatic
+
+	column AvgValue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 3c456616-dfe4-4bf8-9813-5143ed917829
+		sourceLineageTag: AvgValue
+		summarizeBy: sum
+		sourceColumn: AvgValue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column MinValue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(12, 3)
+		lineageTag: b1d180fc-e45e-4418-b144-486647014310
+		sourceLineageTag: MinValue
+		summarizeBy: sum
+		sourceColumn: MinValue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column MaxValue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 9d9491c0-eba6-4bd8-bcb2-f6031085a997
+		sourceLineageTag: MaxValue
+		summarizeBy: sum
+		sourceColumn: MaxValue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column CoveragePct
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(6, 2)
+		lineageTag: 02b10b61-3bcd-4527-8fcf-a23f1d0ba9c6
+		sourceLineageTag: CoveragePct
+		summarizeBy: sum
+		sourceColumn: CoveragePct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition FactAirQualityDaily = entity
+		mode: directLake
+		source
+			entityName: FactAirQualityDaily
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

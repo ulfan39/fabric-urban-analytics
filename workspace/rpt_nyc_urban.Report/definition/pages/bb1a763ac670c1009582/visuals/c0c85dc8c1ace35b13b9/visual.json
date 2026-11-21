@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "c0c85dc8c1ace35b13b9",
+  "position": {
+    "x": 314.19898377315195,
+    "y": 872.10358957547942,
+    "z": 5,
+    "height": 195,
+    "width": 214,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTaxiDaily"
+                    }
+                  },
+                  "Property": "Corr Trips PM2.5"
+                }
+              },
+              "queryRef": "FactTaxiDaily.Corr Trips PM2.5",
+              "nativeQueryRef": "Corr Trips PM2.5"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "026fe925c40c06136e70",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactTaxiDaily"
+              }
+            },
+            "Property": "Corr Trips PM2.5"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

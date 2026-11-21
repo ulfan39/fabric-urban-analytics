@@ -1,0 +1,68 @@
+table FactTaxiHourly
+	lineageTag: 5fe1ef79-3fcd-4d99-ba48-4e91bc3e2293
+	sourceLineageTag: [gold].[FactTaxiHourly]
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d9b44ac0-6c88-4fc7-977b-94ece7b041ca
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: 43391267-70a7-47e7-bc73-e4376c0fdee8
+		sourceLineageTag: Hour
+		summarizeBy: sum
+		sourceColumn: Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column Borough
+		dataType: string
+		sourceProviderType: varchar(30)
+		lineageTag: f59c6494-c450-4c73-a005-f43bdc14c215
+		sourceLineageTag: Borough
+		summarizeBy: none
+		sourceColumn: Borough
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trips
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e037a71a-0a75-4bed-9a29-4177fb74ef4b
+		sourceLineageTag: Trips
+		summarizeBy: sum
+		sourceColumn: Trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalUsd
+		dataType: double
+		sourceProviderType: decimal(18, 2)
+		lineageTag: 505f280b-7987-42ad-86d9-7a50de47a46c
+		sourceLineageTag: TotalUsd
+		summarizeBy: sum
+		sourceColumn: TotalUsd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactTaxiHourly = entity
+		mode: directLake
+		source
+			entityName: FactTaxiHourly
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

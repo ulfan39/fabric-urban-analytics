@@ -1,0 +1,54 @@
+table DimZone
+	lineageTag: bb606d7e-ab6a-45f7-917d-a3f42150a5b5
+	sourceLineageTag: [gold].[DimZone]
+
+	column ZoneKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b8befabb-8153-4b59-af9c-2bccf5d1ef6d
+		sourceLineageTag: ZoneKey
+		summarizeBy: none
+		sourceColumn: ZoneKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Borough
+		dataType: string
+		sourceProviderType: varchar(30)
+		lineageTag: 67429a23-8270-4733-ba35-d81b6ac94bd6
+		sourceLineageTag: Borough
+		summarizeBy: none
+		sourceColumn: Borough
+
+		annotation SummarizationSetBy = Automatic
+
+	column Zone
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: 3712b7d2-71b7-4d91-8e8d-b17fdafa6166
+		sourceLineageTag: Zone
+		summarizeBy: none
+		sourceColumn: Zone
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServiceZone
+		dataType: string
+		sourceProviderType: varchar(30)
+		lineageTag: f18fe116-3ee5-4428-81f2-f9db86197352
+		sourceLineageTag: ServiceZone
+		summarizeBy: none
+		sourceColumn: ServiceZone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimZone = entity
+		mode: directLake
+		source
+			entityName: DimZone
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

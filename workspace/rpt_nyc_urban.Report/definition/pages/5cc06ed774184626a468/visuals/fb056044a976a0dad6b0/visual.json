@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "fb056044a976a0dad6b0",
+  "position": {
+    "x": 1403.0477466467578,
+    "y": 256.06336916573537,
+    "z": 3000,
+    "height": 120.84576298967382,
+    "width": 388.7205376167841,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTaxiDaily"
+                    }
+                  },
+                  "Property": "Avg Duration min"
+                }
+              },
+              "queryRef": "FactTaxiDaily.Avg Duration min",
+              "nativeQueryRef": "Avg Duration min"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "66183817280743cc0b5a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactTaxiDaily"
+              }
+            },
+            "Property": "Avg Duration min"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "a473188b13de510cd30b",
+  "position": {
+    "x": 789.03764041253362,
+    "y": 0,
+    "z": 0,
+    "height": 165.15587608588754,
+    "width": 314.19898377315195,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAirQualityDaily"
+                    }
+                  },
+                  "Property": "PM2.5"
+                }
+              },
+              "queryRef": "FactAirQualityDaily.PM2.5",
+              "nativeQueryRef": "PM2.5"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "617e0c700eb0c1a6302e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactAirQualityDaily"
+              }
+            },
+            "Property": "PM2.5"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

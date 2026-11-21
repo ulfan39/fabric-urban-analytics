@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "171537c2711ac2bee030",
+  "position": {
+    "x": 597.32772778033234,
+    "y": 117.04394665965972,
+    "z": 2,
+    "height": 290.59186756881036,
+    "width": 300.68186297050516,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimFX"
+                    }
+                  },
+                  "Property": "USD per EUR"
+                }
+              },
+              "queryRef": "DimFX.USD per EUR",
+              "nativeQueryRef": "USD per EUR"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "167ebc069ed873285528",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimFX"
+              }
+            },
+            "Property": "USD per EUR"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
