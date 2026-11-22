@@ -45,9 +45,10 @@ flowchart LR
   how it is ingested, where it lands, which transform builds its silver table and how it is written.
   A dataset with a known shape (e.g. green taxi) is added by configuration only; a new shape needs one
   transform function. Gold loads are listed in `meta.GoldLoads`. See [docs/05_adding_a_source.md](docs/05_adding_a_source.md).
-* **Git is the single source of truth.** The workspace is connected to this repository (Fabric Git integration,
-  folder `workspace/`); notebooks, pipelines, dataflows and the warehouse are versioned. Pipelines and dataflows
-  read the configuration directly from Git.
+* **Git is the single source of truth.** The workspace is connected to this repository through Fabric Git
+  integration (Azure DevOps, mirrored to GitHub; folder `workspace/`); notebooks, pipelines, dataflows, the
+  warehouse, the semantic model and the report are versioned. Notebooks and dataflows read the configuration
+  directly from Git.
 * **Idempotent, incremental loads.** Bronze copies only missing months; silver processes only new/changed files
   (`_load_log`) and replaces whole partitions; gold procedures rebuild their tables.
 * **Data quality built in.** Schema drift between monthly files is handled, invalid rows are counted per reason,

@@ -55,4 +55,7 @@ Every step is idempotent, so a failed run is simply re-run.
 | FX forward-filled to every calendar day, flag `is_published` | ECB has no rates on weekends/holidays; taxi revenue exists every day |
 | Units standardised in silver (NO2 → ppb) | OpenAQ sensors report NO2 in ppm or µg/m³ |
 | Gold in Warehouse, loads listed in `meta.GoldLoads` | T-SQL star schema for BI; new facts are added by registration, the orchestrating procedure stays unchanged |
+| `usp_load_all` builds one script from `meta.GoldLoads` and runs it with `EXEC` | Fabric Warehouse rejects variables inside table queries in distributed mode (Msg 16546), so a `WHILE` loop over the table does not work |
+| Fabric Git integration with Azure DevOps, GitHub as mirror | GitHub sync is disabled in the tenant; GitHub is still needed for the public raw configuration URL and GitHub Actions |
+| Report date slicer limited to 2025-2026, calendar 2000-2027 | the calendar must cover the GDP history; the report focuses on the years with taxi and air data |
 | Secrets only in `lh_bronze.cfg_secrets` (restricted) | no keys in Git; production: Azure Key Vault |
