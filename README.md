@@ -54,6 +54,46 @@ flowchart LR
 * **Data quality built in.** Schema drift between monthly files is handled, invalid rows are counted per reason,
   duplicates removed, units standardised; every load is logged (rows in / out / rejected).
 
+## Results
+
+The Fabric workspace lives in a university tenant and is not public, so the results are shown here.
+Full report export: [docs/report/rpt_nyc_urban.pdf](docs/report/rpt_nyc_urban.pdf).
+
+| | |
+|---|---|
+| Yellow taxi trips (Jun-Oct 2026) | 14.58 M loaded, 14.28 M after cleaning (1.7 % rejected, 58 k duplicates) |
+| Air quality | 22,645 station-days from 55 OpenAQ stations |
+| Gold star schema | 5 dimensions, 3 facts, 8 load procedures |
+| Full pipeline run | about 7 minutes, four sources in parallel |
+
+| question | answer |
+|---|---|
+| Q1 Do taxi trips relate to air quality? | Very weakly: daily correlation of trips with NO2 is r = 0.18, with PM2.5 r = 0.04. |
+| Q2 Which zones and times? | Demand peaks on weekday afternoons and evenings, in Upper East Side, Midtown and at JFK. Air quality is daily, so hours cannot be linked directly. |
+| Q3 Revenue per trip USD vs EUR? | $31.04 vs €26.97; the EUR value moves with the ECB rate (about 1.11-1.17 USD per EUR in Jun-Oct 2026). |
+| Q4 Multi-year growth vs environment? | US GDP grew from about $10 T (2000) to $30.8 T (2025); taxi history currently starts in Jun 2026 (one date in the configuration). |
+
+On 16 Jul 2026 PM2.5 rose to 86.8 µg/m³ while NO2 stayed normal: smoke from Canadian wildfires, not traffic.
+Details and limitations: [docs/06_dashboards.md](docs/06_dashboards.md).
+
+**Mobility**
+![Mobility page](docs/screenshots/01_mobility.png)
+
+**Air Quality**
+![Air Quality page](docs/screenshots/02_air_quality.png)
+
+**Mobility vs Air**
+![Mobility vs Air page](docs/screenshots/03_mobility_vs_air.png)
+
+**Economy**
+![Economy page](docs/screenshots/04_economy.png)
+
+**Orchestration** - a successful `pl_master` run
+![pl_master run](docs/screenshots/05_pl_master_run.png)
+
+**Source control** - every workspace item synced with Git
+![Workspace items synced with Git](docs/screenshots/06_source_control.png)
+
 ## Repository layout
 
 | path | content |
