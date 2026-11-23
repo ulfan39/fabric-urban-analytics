@@ -71,7 +71,7 @@ a visual filter `DimDate[Year]` 2025-2026, because the calendar covers 2000-2027
 
 | question | finding |
 |---|---|
-| Q1 traffic vs air quality | Daily city-wide taxi trips and NO2 show a weak positive relationship (rising but flat trend line, wide scatter). PM2.5 is driven mainly by regional events and does not follow taxi traffic. |
+| Q1 traffic vs air quality | Daily city-wide taxi trips and NO2 show a very weak positive relationship: r = 0.18 (nearly flat trend line, wide scatter, Jun-Oct 2026). With PM2.5, r = 0.04, i.e. no relationship: PM2.5 is driven mainly by regional events. |
 | Q2 zones and times | Taxi demand peaks on weekday afternoons and evenings and in Midtown / Upper East Side and at JFK. Air quality is available per day and station, not per hour, so the link can only be studied at day × borough level (`gold.vw_MobilityAirDaily`). |
 | Q3 revenue in USD vs EUR | Revenue per trip about $31.0 / €27.0 (Jun-Oct 2026). Average fare alone is about $22; the rest is tips, tolls, surcharges and taxes. The EUR value moves with the daily ECB rate even when USD fares do not change. |
 | Q4 multi-year growth | US GDP grows from 2000 to 2025 in the matrix (with a dip in 2020), to about $30.8 trillion in 2025. Taxi data currently covers 2026 only, so mobility growth over years cannot be measured yet; it needs only an earlier `start_date` (see [05_adding_a_source.md](05_adding_a_source.md)). |
@@ -81,7 +81,9 @@ normal (17.0 ppb). NYC Emergency Management and NY DEC issued air quality adviso
 wildfires on 14-19 Jul 2026. NO2 is therefore the better indicator of traffic emissions.
 
 Limitations: only yellow taxis (a small part of all vehicles); no weather data (wind and temperature control NO2
-concentration); air quality is daily. Adding weather (`weather_nyc_daily`, already in the configuration,
+concentration); air quality is daily. The borough of an air quality station is the nearest borough centre,
+which is wrong near borders (e.g. Fort Lee, NJ and Astoria, Queens appear as Manhattan); a point-in-polygon
+lookup against the official borough boundaries would fix it. Adding weather (`weather_nyc_daily`, already in the configuration,
 disabled) is the next extension.
 
 Optional RLS (Phase 5): Manage roles > one role per borough, e.g. `Manhattan` with table filter
